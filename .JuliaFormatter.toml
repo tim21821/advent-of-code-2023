@@ -1,0 +1,4 @@
+always_for_in = true
+for_in_replacement = "in"
+always_use_return = true
+format_docstrings = true
