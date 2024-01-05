@@ -1,8 +1,14 @@
+"""
+Represent a box containing `lenses` (with labels) and the `labels` sorted by entry.
+"""
 mutable struct Box
     lenses::Dict{String,Int}
     labels::Vector{String}
 end
 
+"""
+Add the `lens` and its `label` to the box.
+"""
 function add!(box::Box, label::AbstractString, lens::Int)
     if label in keys(box.lenses)
         box.lenses[label] = lens
@@ -12,11 +18,17 @@ function add!(box::Box, label::AbstractString, lens::Int)
     end
 end
 
+"""
+Remove the lens with `label` from the `box`.
+"""
 function remove!(box::Box, label::AbstractString)
     delete!(box.lenses, label)
     return filter!(l -> l != label, box.labels)
 end
 
+"""
+Return the hash value of `s`.
+"""
 function holidayasciistringhelper(s::AbstractString)
     h = 0
     for c in s

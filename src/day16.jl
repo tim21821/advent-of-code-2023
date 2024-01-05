@@ -5,12 +5,18 @@ const DOWN = SVector(0, 1)
 const LEFT = SVector(-1, 0)
 const RIGHT = SVector(1, 0)
 
+"""
+Represent a light beam with its current `position` and `direction`.
+"""
 mutable struct Beam
     position::SVector{2,Int}
     direction::SVector{2,Int}
 end
 
-function reflectonmirror1(direction::SVector{2,Int}) # /
+"""
+Return the direction after reflecting on a '/' mirror.
+"""
+function reflectonmirror1(direction::SVector{2,Int})
     if direction == UP
         return RIGHT
     elseif direction == DOWN
@@ -22,6 +28,9 @@ function reflectonmirror1(direction::SVector{2,Int}) # /
     end
 end
 
+"""
+Return the direction after reflecting on a '\' mirror.
+"""
 function reflectonmirror2(direction::SVector{2,Int}) # \
     if direction == UP
         return LEFT
@@ -34,6 +43,9 @@ function reflectonmirror2(direction::SVector{2,Int}) # \
     end
 end
 
+"""
+Return the number of energized tiles when starting with `beam`.
+"""
 function getnumberofenergized(tiles::Vector{String}, beam::Beam)
     beams = [beam]
     energized = zeros(UInt, length(tiles), length(tiles[1]))
