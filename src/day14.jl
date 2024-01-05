@@ -94,7 +94,7 @@ function docycle!(rocks::Vector{Vector{Char}})
     tiltnorth!(rocks)
     tiltwest!(rocks)
     tiltsouth!(rocks)
-    tilteast!(rocks)
+    return tilteast!(rocks)
 end
 
 """

@@ -49,10 +49,13 @@ Return the number of energized tiles when starting with `beam`.
 function getnumberofenergized(tiles::Vector{String}, beam::Beam)
     beams = [beam]
     energized = zeros(UInt, length(tiles), length(tiles[1]))
-    visiteddirections = Dict{SVector{2,Int}, Set{SVector{2,Int}}}()
+    visiteddirections = Dict{SVector{2,Int},Set{SVector{2,Int}}}()
     while length(beams) > 0
         currentposition = beams[1].position
-        if currentposition[1] < 1 || currentposition[1] > length(tiles[1]) || currentposition[2] < 1 || currentposition[2] > length(tiles)
+        if currentposition[1] < 1 ||
+           currentposition[1] > length(tiles[1]) ||
+           currentposition[2] < 1 ||
+           currentposition[2] > length(tiles)
             popfirst!(beams)
         else
             currentbeam = beams[1]
@@ -77,7 +80,8 @@ function getnumberofenergized(tiles::Vector{String}, beam::Beam)
             end
 
             newposition = currentposition + currentbeam.direction
-            if newposition in keys(visiteddirections) && currentbeam.direction in visiteddirections[newposition]
+            if newposition in keys(visiteddirections) &&
+               currentbeam.direction in visiteddirections[newposition]
                 popfirst!(beams)
             else
                 currentbeam.position = newposition
@@ -103,7 +107,8 @@ function part2()
     maximumenergized = zero(UInt)
     for row in eachindex(lines)
         fromleft = getnumberofenergized(lines, Beam(SVector(1, row), RIGHT))
-        fromright = getnumberofenergized(lines, Beam(SVector(length(lines[row]), row), LEFT))
+        fromright =
+            getnumberofenergized(lines, Beam(SVector(length(lines[row]), row), LEFT))
         maximumenergized = max(maximumenergized, fromleft, fromright)
     end
 
